@@ -22,4 +22,24 @@ public class StudentService {
     public List<Student> getAllStudents() {
         return studentRepository.findAll();
     }
+
+    public Student getStudentById(Long id) {
+        return studentRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Student not found"));
+    }
+
+    public Student updateStudent(Long id, Student updatedStudent) {
+        Student existingStudent = getStudentById(id);
+
+        existingStudent.setName(updatedStudent.getName());
+        existingStudent.setEmail(updatedStudent.getEmail());
+        existingStudent.setCollege(updatedStudent.getCollege());
+
+        return studentRepository.save(existingStudent);
+    }
+
+    public void deleteStudent(Long id) {
+        Student existingStudent = getStudentById(id);
+        studentRepository.delete(existingStudent);
+    }
 }
