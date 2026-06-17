@@ -18,6 +18,7 @@ public class JwtUtil {
             Keys.hmacShaKeyFor(SECRET.getBytes());
 
     public static String generateToken(String email) {
+        
         return Jwts.builder()
                 .subject(email)
                 .issuedAt(new Date())
@@ -25,4 +26,13 @@ public class JwtUtil {
                 .signWith(key)
                 .compact();
     }
+    public static String extractEmail(String token) {
+
+    return Jwts.parser()
+            .verifyWith((javax.crypto.SecretKey) key)
+            .build()
+            .parseSignedClaims(token)
+            .getPayload()
+            .getSubject();
+}
 }
