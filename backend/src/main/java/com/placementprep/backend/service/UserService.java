@@ -35,7 +35,7 @@ public class UserService {
             loginRequest.getPassword(),
             user.getPassword()
     )) {
-        return JwtUtil.generateToken(user.getEmail());
+        return JwtUtil.generateToken(user.getEmail(), user.getRole());
     }
 
     return "Invalid password";
